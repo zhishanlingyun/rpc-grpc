@@ -1292,9 +1292,11 @@ public final class GreeterProto {
       "\n\rGreeter.proto\022\rcom.demo.grpc\")\n\014HelloR" +
       "equest\022\014\n\004name\030\001 \001(\t\022\013\n\003msg\030\002 \001(\t\".\n\rHel" +
       "loResponse\022\014\n\004code\030\001 \001(\005\022\017\n\007message\030\002 \001(" +
-      "\t2R\n\014GreetService\022B\n\005greet\022\033.com.demo.gr" +
-      "pc.HelloRequest\032\034.com.demo.grpc.HelloRes" +
-      "ponseB\020B\014GreeterProtoP\000b\006proto3"
+      "\t2\227\001\n\014GreetService\022B\n\005greet\022\033.com.demo.g" +
+      "rpc.HelloRequest\032\034.com.demo.grpc.HelloRe" +
+      "sponse\022C\n\004c2ss\022\033.com.demo.grpc.HelloRequ" +
+      "est\032\034.com.demo.grpc.HelloResponse0\001B\020B\014G" +
+      "reeterProtoP\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

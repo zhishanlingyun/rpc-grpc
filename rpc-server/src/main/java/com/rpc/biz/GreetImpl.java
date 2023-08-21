@@ -14,4 +14,22 @@ public class GreetImpl extends GreetServiceGrpc.GreetServiceImplBase {
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
+
+    @Override
+    public void c2ss(GreeterProto.HelloRequest request, StreamObserver<GreeterProto.HelloResponse> responseObserver) {
+        String name = request.getName();
+        System.out.println("name: " + name);
+
+        for(int i=0;i<10;i++){
+            GreeterProto.HelloResponse response = GreeterProto.HelloResponse.newBuilder().setCode(200).setMessage(name + ": success"+i).build();
+            responseObserver.onNext(response);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
+        responseObserver.onCompleted();
+    }
 }

@@ -16,4 +16,8 @@ message HelloResponse {
 
 service GreetService {
   rpc greet(HelloRequest) returns (HelloResponse);
+
+  //服务端流式响应
+  rpc c2ss(HelloRequest) returns (stream HelloResponse);
+
 }

@@ -46,6 +46,37 @@ public final class GreetServiceGrpc {
     return getGreetMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.demo.grpc.GreeterProto.HelloRequest,
+      com.demo.grpc.GreeterProto.HelloResponse> getC2ssMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "c2ss",
+      requestType = com.demo.grpc.GreeterProto.HelloRequest.class,
+      responseType = com.demo.grpc.GreeterProto.HelloResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<com.demo.grpc.GreeterProto.HelloRequest,
+      com.demo.grpc.GreeterProto.HelloResponse> getC2ssMethod() {
+    io.grpc.MethodDescriptor<com.demo.grpc.GreeterProto.HelloRequest, com.demo.grpc.GreeterProto.HelloResponse> getC2ssMethod;
+    if ((getC2ssMethod = GreetServiceGrpc.getC2ssMethod) == null) {
+      synchronized (GreetServiceGrpc.class) {
+        if ((getC2ssMethod = GreetServiceGrpc.getC2ssMethod) == null) {
+          GreetServiceGrpc.getC2ssMethod = getC2ssMethod =
+              io.grpc.MethodDescriptor.<com.demo.grpc.GreeterProto.HelloRequest, com.demo.grpc.GreeterProto.HelloResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "c2ss"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.demo.grpc.GreeterProto.HelloRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.demo.grpc.GreeterProto.HelloResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new GreetServiceMethodDescriptorSupplier("c2ss"))
+              .build();
+        }
+      }
+    }
+    return getC2ssMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -100,6 +131,16 @@ public final class GreetServiceGrpc {
         io.grpc.stub.StreamObserver<com.demo.grpc.GreeterProto.HelloResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGreetMethod(), responseObserver);
     }
+
+    /**
+     * <pre>
+     *服务端流式响应
+     * </pre>
+     */
+    default void c2ss(com.demo.grpc.GreeterProto.HelloRequest request,
+        io.grpc.stub.StreamObserver<com.demo.grpc.GreeterProto.HelloResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getC2ssMethod(), responseObserver);
+    }
   }
 
   /**
@@ -136,6 +177,17 @@ public final class GreetServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGreetMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     *服务端流式响应
+     * </pre>
+     */
+    public void c2ss(com.demo.grpc.GreeterProto.HelloRequest request,
+        io.grpc.stub.StreamObserver<com.demo.grpc.GreeterProto.HelloResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncServerStreamingCall(
+          getChannel().newCall(getC2ssMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -159,6 +211,17 @@ public final class GreetServiceGrpc {
     public com.demo.grpc.GreeterProto.HelloResponse greet(com.demo.grpc.GreeterProto.HelloRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGreetMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     *服务端流式响应
+     * </pre>
+     */
+    public java.util.Iterator<com.demo.grpc.GreeterProto.HelloResponse> c2ss(
+        com.demo.grpc.GreeterProto.HelloRequest request) {
+      return io.grpc.stub.ClientCalls.blockingServerStreamingCall(
+          getChannel(), getC2ssMethod(), getCallOptions(), request);
     }
   }
 
@@ -188,6 +251,7 @@ public final class GreetServiceGrpc {
   }
 
   private static final int METHODID_GREET = 0;
+  private static final int METHODID_C2SS = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -208,6 +272,10 @@ public final class GreetServiceGrpc {
       switch (methodId) {
         case METHODID_GREET:
           serviceImpl.greet((com.demo.grpc.GreeterProto.HelloRequest) request,
+              (io.grpc.stub.StreamObserver<com.demo.grpc.GreeterProto.HelloResponse>) responseObserver);
+          break;
+        case METHODID_C2SS:
+          serviceImpl.c2ss((com.demo.grpc.GreeterProto.HelloRequest) request,
               (io.grpc.stub.StreamObserver<com.demo.grpc.GreeterProto.HelloResponse>) responseObserver);
           break;
         default:
@@ -235,6 +303,13 @@ public final class GreetServiceGrpc {
               com.demo.grpc.GreeterProto.HelloRequest,
               com.demo.grpc.GreeterProto.HelloResponse>(
                 service, METHODID_GREET)))
+        .addMethod(
+          getC2ssMethod(),
+          io.grpc.stub.ServerCalls.asyncServerStreamingCall(
+            new MethodHandlers<
+              com.demo.grpc.GreeterProto.HelloRequest,
+              com.demo.grpc.GreeterProto.HelloResponse>(
+                service, METHODID_C2SS)))
         .build();
   }
 
@@ -284,6 +359,7 @@ public final class GreetServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new GreetServiceFileDescriptorSupplier())
               .addMethod(getGreetMethod())
+              .addMethod(getC2ssMethod())
               .build();
         }
       }
