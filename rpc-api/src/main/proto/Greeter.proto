@@ -1,0 +1,19 @@
+syntax = "proto3";
+package com.demo.grpc;
+
+option java_multiple_files = false;
+option java_outer_classname = "GreeterProto";
+
+message HelloRequest {
+  string name = 1;
+  string msg = 2;
+}
+
+message HelloResponse {
+  int32 code = 1;
+  string message = 2;
+}
+
+service GreetService {
+  rpc greet(HelloRequest) returns (HelloResponse);
+}
